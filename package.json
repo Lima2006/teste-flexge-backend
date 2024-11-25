@@ -1,0 +1,11 @@
+{
+  "name": "teste-flexge-backend",
+  "packageManager": "yarn@4.4.1",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongoose": "^8.8.2"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  }
+}
