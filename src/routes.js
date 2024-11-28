@@ -1,18 +1,19 @@
 const { Router } = require("express");
-const companyController = require("./controllers/company-controller");
+const LoginController = require("./controllers/login-controller");
+const CompanyController = require("./controllers/company-controller");
+const authenticateToken = require("./authentication/authenticate-token");
 
 const routes = Router();
 
-routes.post("/companies", companyController.store);
+// Login
+routes.post("/login", LoginController.login);
 
-routes.get("/companies", companyController.index);
-
-routes.get("/companies/:id", companyController.show);
-
-routes.get("/companies/:id", companyController.show);
-
-routes.put("/companies/:id", companyController.update);
-
-routes.delete("/companies/:id", companyController.destroy);
+// Company
+routes.post("/companies", authenticateToken, CompanyController.store);
+routes.get("/companies", authenticateToken, CompanyController.index);
+routes.get("/companies/:id", authenticateToken, CompanyController.show);
+routes.get("/companies/:id", authenticateToken, CompanyController.show);
+routes.put("/companies/:id", authenticateToken, CompanyController.update);
+routes.delete("/companies/:id", authenticateToken, CompanyController.destroy);
 
 module.exports = routes;
