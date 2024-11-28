@@ -8,7 +8,7 @@ class LoginController {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
       if (user?.password === password) {
-        const token = jwt.sign({ email }, process.env.SECRET_KEY, {
+        const token = jwt.sign({ email }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: "1h",
         });
         res.status(200).json({ token });
