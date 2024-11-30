@@ -19,7 +19,6 @@ class ContractController {
   }
 
   async index(req, res) {
-    console.log("teste");
     try {
       const {
         page = 1,
