@@ -80,12 +80,10 @@ class ContractController {
     const { id } = req.params;
 
     try {
-      const contract = await ContractModel.findById(id);
+      const contract = await ContractModel.findByIdAndDelete(id);
       if (!contract) {
         return res.status(404).json({ message: "Contract not found" });
       }
-
-      await contract.remove();
       res.status(200).json({ message: "Sucessfully deleted contract" });
     } catch (error) {
       res.status(500).json({ message: "Internal server error", error });
