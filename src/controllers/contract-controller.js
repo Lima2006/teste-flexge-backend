@@ -25,9 +25,24 @@ class ContractController {
         limit = 10,
         sortBy = "createdAt",
         order = "asc",
+        documentNumber,
+        socialReason,
+        company,
       } = req.query;
+      
+      // Search filters
+      const search = {};
+      if (documentNumber) {
+        search.documentNumber = { $regex: documentNumber, $options: "i" };
+      }
+      if (socialReason) {
+        search.socialReason = { $regex: socialReason, $options: "i" };
+      }
+      if (company) {
+        search.company = company;
+      }
 
-      const contracts = await ContractModel.find()
+      const contracts = await ContractModel.find(search)
         .populate("company", "name")
         .sort({ [sortBy]: order === "asc" ? 1 : -1 })
         .skip((page - 1) * limit)
