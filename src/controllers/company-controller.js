@@ -26,9 +26,21 @@ class CompanyController {
 
   async index(req, res) {
     try {
-      const companies = await CompanyModel.find();
+      const {
+        page = 1,
+        limit = 10,
+        sortBy = "createdAt",
+        order = "asc",
+      } = req.query;
 
-      return res.status(200).json(companies);
+      const companies = await CompanyModel.find()
+        .sort({ [sortBy]: order === "asc" ? 1 : -1 })
+        .skip((page - 1) * limit)
+        .limit(parseInt(limit));
+
+      const total = await CompanyModel.countDocuments();
+
+      return res.status(200).json({ companies, total });
     } catch (error) {
       return res
         .status(500)
