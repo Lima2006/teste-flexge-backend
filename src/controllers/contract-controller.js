@@ -29,7 +29,7 @@ class ContractController {
         socialReason,
         company,
       } = req.query;
-      
+
       // Search filters
       const search = {};
       if (documentNumber) {

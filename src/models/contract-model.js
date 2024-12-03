@@ -46,19 +46,19 @@ const contractSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  phone: {
-    type: String,
-    required: true,
-  },
+  phone: String,
   dates: {
     contractStartsIn: { type: Date, required: true },
     contractEndsIn: { type: Date, required: true },
     dueDay: { type: Number, required: true },
   },
+  fileUrl: String,
   products: [
     {
       name: { type: String, required: true },
-      quantity: { type: Number, required: true },
+      amount: Number,
+      finalUnitPrice: { type: Number, required: true },
+      beginningOfTerm: Date,
     },
   ],
   createdAt: { type: Date, default: Date.now },
